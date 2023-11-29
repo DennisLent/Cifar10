@@ -3,10 +3,9 @@ from tensorflow.keras import models
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten
 import processing
 import os
-from population import Individual, Population
 
 
-def create_model(ind: Individual):
+def create_model(ind):
     """
     function to create a model from an individuals parameters
     """
@@ -33,7 +32,7 @@ def sim_model(model, train, test, epochs):
     """
     train_images, train_labels = train
     test_images, test_labels = test
-    history = model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
+    history = model.fit(train_images, train_labels, epochs=epochs, verbose=1, validation_data=(test_images, test_labels))
     test_loss, test_acc = model.evaluate(test_images, test_labels)
 
     return test_acc
@@ -41,7 +40,7 @@ def sim_model(model, train, test, epochs):
 
 
 
-model = models.Sequential()
+""" model = models.Sequential()
 
 # Convolutional
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))
@@ -66,4 +65,4 @@ history = model.fit(train_images, train_labels, epochs=10, validation_data=(test
 # Evaluate
 test_loss, test_acc = model.evaluate(test_images, test_labels)
 
-print(f"Test accuracy: {test_acc}")
+print(f"Test accuracy: {test_acc}") """
