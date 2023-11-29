@@ -1,3 +1,4 @@
-from evolution import run_algorithm
+from evolution import run_algorithm, plotter
 
-run_algorithm(20, 20, 10, 233, True)
+m = run_algorithm(population_size=6, max_runs=20, max_epochs=10, seed=233, verbose=True)
+plotter(m)

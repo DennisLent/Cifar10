@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow.keras import models
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten
+from tensorflow.keras.callbacks import EarlyStopping
 import processing
 import os
 
@@ -32,7 +33,9 @@ def sim_model(model, train, test, epochs):
     """
     train_images, train_labels = train
     test_images, test_labels = test
-    history = model.fit(train_images, train_labels, epochs=epochs, verbose=1, validation_data=(test_images, test_labels))
+    
+    early_stopping = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
+    history = model.fit(train_images, train_labels, epochs=epochs, verbose=1, callbacks=[early_stopping], validation_data=(test_images, test_labels))
     test_loss, test_acc = model.evaluate(test_images, test_labels)
 
     return test_acc

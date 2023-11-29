@@ -32,6 +32,8 @@ def run_algorithm(population_size: int, max_runs: int, max_epochs: int, seed: in
 
     while gen < max_runs:
 
+        print(f"----- GENERATION {gen} -----")
+
         #evaluate the fitness of the population
         population.fitness(train, test, max_epochs, verbose)
 
@@ -46,4 +48,9 @@ def run_algorithm(population_size: int, max_runs: int, max_epochs: int, seed: in
         #next generation
         population.new_generation()
         gen += 1
+    
+    return evolution
 
+def plotter(values: dict[str, list]):
+    plt.plot(values["Generation"], values["Fitness"])
+    plt.show()
