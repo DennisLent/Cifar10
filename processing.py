@@ -25,12 +25,12 @@ def create_data(directory, type):
     """
     Unpickle the pickled pictures with their lables
     """
-    def unpickle(file):
+    def _unpickle(file):
         with open(file, 'rb') as fo:
             dict = pickle.load(fo, encoding='bytes')
         return dict
     
-    def make_image(image_array):
+    def _make_image(image_array):
         r = image_array[:1024].reshape(32,32) / 255.0
         g = image_array[1024:2048].reshape(32,32) / 255.0
         b = image_array[2048:].reshape(32,32) / 255.0
@@ -43,14 +43,14 @@ def create_data(directory, type):
     for filename in os.listdir(directory):
         f = os.path.join(directory, filename)
         if (type in filename) and (os.path.isfile(f)):
-            dict = unpickle(f)
+            dict = _unpickle(f)
             all_data.update(dict)
 
-    data, labels = [], []
+    data, labels = [], []   
     
     for i in range(len(all_data[b'data'])):
         image_array = np.array(all_data[b'data'][i])
-        image_array = make_image(image_array)
+        image_array = _make_image(image_array)
         image_label = all_data[b'labels'][i]
         
         data.append(image_array)

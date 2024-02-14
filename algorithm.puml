@@ -1,0 +1,19 @@
+@startuml
+title Genetic Algorithm for CNN Improvement
+
+[*] --> Initialize_Population
+
+Initialize_Population --> Evaluate_Fitness
+Evaluate_Fitness --> Create_New_Generation
+Create_New_Generation --> Evaluate_Fitness : Until max_runs reached
+Evaluate_Fitness --> End : Max_runs reached
+
+Create_New_Generation --> End : Max_epochs reached
+
+note right of Initialize_Population : Initialize with random genes\nfor each individual\nEnsure population size\nis a multiple of 2
+
+note right of Evaluate_Fitness : Create TensorFlow model\nTrain and test\nindividuals' models\nCalculate fitness scores
+
+note right of Create_New_Generation : Select top performers\nfor next generation\nCreate offspring\nwith crossover\nand mutation
+
+@enduml
